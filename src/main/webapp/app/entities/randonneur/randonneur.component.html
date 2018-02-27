@@ -1,0 +1,82 @@
+<div>
+    <h2>
+        <span jhiTranslate="randoRicmApp.randonneur.home.title">Randonneurs</span>
+        <button class="btn btn-primary float-right jh-create-entity create-randonneur" [routerLink]="['/', { outlets: { popup: ['randonneur-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="randoRicmApp.randonneur.home.createLabel">
+            Create new Randonneur
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="randonneurs">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="prenom"><span jhiTranslate="randoRicmApp.randonneur.prenom">Prenom</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nom"><span jhiTranslate="randoRicmApp.randonneur.nom">Nom</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sexe"><span jhiTranslate="randoRicmApp.randonneur.sexe">Sexe</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dateDeNaissance"><span jhiTranslate="randoRicmApp.randonneur.dateDeNaissance">Date De Naissance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tel"><span jhiTranslate="randoRicmApp.randonneur.tel">Tel</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="vma"><span jhiTranslate="randoRicmApp.randonneur.vma">Vma</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="poids"><span jhiTranslate="randoRicmApp.randonneur.poids">Poids</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="marcheur.id"><span jhiTranslate="randoRicmApp.randonneur.marcheur">Marcheur</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let randonneur of randonneurs ;trackBy: trackId">
+                <td><a [routerLink]="['../randonneur', randonneur.id ]">{{randonneur.id}}</a></td>
+                <td>{{randonneur.prenom}}</td>
+                <td>{{randonneur.nom}}</td>
+                <td jhiTranslate="{{'randoRicmApp.Sexe.' + randonneur.sexe}}">{{randonneur.sexe}}</td>
+                <td>{{randonneur.dateDeNaissance | date:'medium'}}</td>
+                <td>{{randonneur.tel}}</td>
+                <td>{{randonneur.vma}}</td>
+                <td>{{randonneur.poids}}</td>
+                <td>
+                    {{randonneur.marcheur?.id}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../randonneur', randonneur.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'randonneur/'+ randonneur.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'randonneur/'+ randonneur.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="randonneurs && randonneurs.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

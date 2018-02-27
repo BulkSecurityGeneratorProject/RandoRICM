@@ -1,0 +1,72 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "marcheur",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "utilisateur"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "parcours",
+            "relationshipName": "marcheur",
+            "otherEntityName": "randonnee",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "positions",
+            "relationshipName": "envoyeur",
+            "otherEntityName": "message",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "prenom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sexe",
+            "fieldType": "Sexe",
+            "fieldValues": "MASCULIN,FEMININ,AUTRE"
+        },
+        {
+            "fieldName": "dateDeNaissance",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "tel",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "vma",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "poids",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20180227132319",
+    "entityTableName": "randonneur",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false
+}

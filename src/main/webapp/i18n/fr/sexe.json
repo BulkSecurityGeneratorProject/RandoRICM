@@ -1,0 +1,10 @@
+{
+    "randoRicmApp": {
+        "Sexe" : {
+            "null": "",
+            "MASCULIN": "MASCULIN",
+            "FEMININ": "FEMININ",
+            "AUTRE": "AUTRE"
+        }
+    }
+}

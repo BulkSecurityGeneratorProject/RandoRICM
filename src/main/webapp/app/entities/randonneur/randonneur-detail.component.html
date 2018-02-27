@@ -1,0 +1,66 @@
+
+<div *ngIf="randonneur">
+    <h2><span jhiTranslate="randoRicmApp.randonneur.detail.title">Randonneur</span> {{randonneur.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="randoRicmApp.randonneur.prenom">Prenom</span></dt>
+        <dd>
+            <span>{{randonneur.prenom}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.nom">Nom</span></dt>
+        <dd>
+            <span>{{randonneur.nom}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.sexe">Sexe</span></dt>
+        <dd>
+            <span jhiTranslate="{{'randoRicmApp.Sexe.' + randonneur.sexe}}">{{randonneur.sexe}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.dateDeNaissance">Date De Naissance</span></dt>
+        <dd>
+            <span>{{randonneur.dateDeNaissance | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.tel">Tel</span></dt>
+        <dd>
+            <span>{{randonneur.tel}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.vma">Vma</span></dt>
+        <dd>
+            <span>{{randonneur.vma}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.poids">Poids</span></dt>
+        <dd>
+            <span>{{randonneur.poids}}</span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.marcheur">Marcheur</span></dt>
+        <dd>
+            {{randonneur.marcheur?.id}}
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.marcheur">Marcheur</span></dt>
+        <dd>
+            <span *ngFor="let marcheur of randonneur.marcheurs; let last = last">
+                <a [routerLink]="['/randonnee', marcheur?.id ]">{{marcheur.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="randoRicmApp.randonneur.envoyeur">Envoyeur</span></dt>
+        <dd>
+            <span *ngFor="let envoyeur of randonneur.envoyeurs; let last = last">
+                <a [routerLink]="['/message', envoyeur?.id ]">{{envoyeur.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'randonneur/'+ randonneur.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
